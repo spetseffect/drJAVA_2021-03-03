@@ -2,7 +2,7 @@ package com.company;
 
 public class Methods<T extends Number> {
     //search max value
-    public T Max(T ... args){
+    public static <T> T Max(T ... args){
         T result = args[0];
         for (int i = 1; i < args.length; i++) {
             if ((Double)result < (Double)args[i]) result = args[i];
@@ -10,7 +10,7 @@ public class Methods<T extends Number> {
         return result;
     }
     //search min value
-    public T Min(T... args){
+    public static <T> T Min(T... args){
         T result = args[0];
         for (int i = 1; i < args.length; i++) {
             if ((Double)result > (Double)args[i]) result = args[i];
@@ -18,7 +18,7 @@ public class Methods<T extends Number> {
         return result;
     }
     //get average
-    public double Avg(T ... args){
+    public static <T> double Avg(T ... args){
         if(args.length == 0) return 0;
         double sum = 0;
         for (int i = 0; i < args.length; i++) {
@@ -27,7 +27,7 @@ public class Methods<T extends Number> {
         return sum/args.length;
     }
     //sort array
-    public void InsertSort(T[] array, boolean increase) {
+    public static <T> void InsertSort(T[] array, boolean increase) {
         int size = array.length;
         for (int i = 1; i < size; i++) {
             Double tmp = (Double) array[i];
@@ -38,7 +38,7 @@ public class Methods<T extends Number> {
             array[j + 1] = (T) tmp;
         }
     }
-    public void InsertSort(T[] array) {
+    public static <T> void InsertSort(T[] array) {
         InsertSort(array, true);
     }
 }

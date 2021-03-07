@@ -83,21 +83,23 @@ public class Methods<T extends Number> {
         System.out.println();
     }
     //convert input number to 'double'
-    private static <T> double Convert(T value){
+    private static <T> double Convert(T value) throws Exception{
         if(value instanceof Byte) return (double) ((Byte) value).byteValue();
         else if(value instanceof Short) return (double) ((Short) value).shortValue();
         else if(value instanceof Integer) return (double) ((Integer) value).intValue();
         else if(value instanceof Long) return (double) ((Long) value).longValue();
         else if(value instanceof Float) return (double) ((Float) value).floatValue();
-        else return ((Double) value).doubleValue();
+        else if(value instanceof Double) return (double) ((Double) value).doubleValue();
+        else throw new Exception("Unsupported data type.");
     }
     //convert 'double' value to the number 'T'
-    private static <T> T UnConvert(double value, String className){
+    private static <T> T UnConvert(double value, String className) throws Exception{
         if(className == "java.lang.Byte") return (T) new Byte((byte)value);
         else if(className == "java.lang.Short") return (T) new Short((short) value);
         else if(className == "java.lang.Integer") return (T) new Integer((int) value);
         else if(className == "java.lang.Long") return (T) new Long((long) value);
         else if(className == "java.lang.Float") return (T) new Float((float) value);
-        else return (T) new Double((double) value);
+        else if(className == "java.lang.Double") return (T) new Double((double) value);
+        else throw new Exception("Unsupported data type.");
     }
 }

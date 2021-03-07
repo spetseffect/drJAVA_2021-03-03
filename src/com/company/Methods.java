@@ -2,24 +2,30 @@ package com.company;
 
 public class Methods<T extends Number> {
     //search max value
-    public static <T> T Max(T ... args){
-        T result = args[0];
-        for (int i = 1; i < args.length; i++) {
-            if (Convert(result) < Convert(args[i])) result = args[i];
+    public static <T> T Max(T ... args) throws Exception{
+        if(args.length == 0) throw new Exception("Array is empty. Search of Max is impossible.");
+        else {
+            T result = args[0];
+            for (int i = 1; i < args.length; i++) {
+                if (Convert(result) < Convert(args[i])) result = args[i];
+            }
+            return result;
         }
-        return result;
     }
     //search min value
-    public static <T> T Min(T... args){
-        T result = args[0];
-        for (int i = 1; i < args.length; i++) {
-            if (Convert(result) > Convert(args[i])) result = args[i];
+    public static <T> T Min(T... args) throws Exception{
+        if(args.length == 0) throw new Exception("Array is empty. Search of Min is impossible.");
+        else {
+            T result = args[0];
+            for (int i = 1; i < args.length; i++) {
+                if (Convert(result) > Convert(args[i])) result = args[i];
+            }
+            return result;
         }
-        return result;
     }
     //get average
     public static <T> double Avg(T ... args) throws Exception{
-        if(args.length == 0) throw new Exception("Array is empty.");
+        if(args.length == 0) throw new Exception("Array is empty. Getting of Avg is impossible.");
         else {
             var sum = 0.0;
             for (int i = 0; i < args.length; i++) {
@@ -29,24 +35,31 @@ public class Methods<T extends Number> {
         }
     }
     //sort array
-    public static <T> void InsertSort(T[] array, boolean increase) {
-        String type=array[0].getClass().getTypeName();
-        int size = array.length;
-        for (int i = 1; i < size; i++) {
-            var tmp = Convert(array[i]);
-            int j = i - 1;
-            for (; j >= 0 && (increase ? (Convert(array[j]) > tmp) : (Convert(array[j]) < tmp)); j--) {
-                array[j + 1] = array[j];
+    public static <T> void InsertSort(T[] array, boolean increase) throws Exception{
+        if(array.length == 0) throw new Exception("Array is empty. Sorting is impossible.");
+        else {
+            String type = array[0].getClass().getTypeName();
+            int size = array.length;
+            for (int i = 1; i < size; i++) {
+                var tmp = Convert(array[i]);
+                int j = i - 1;
+                for (; j >= 0 && (increase ? (Convert(array[j]) > tmp) : (Convert(array[j]) < tmp)); j--) {
+                    array[j + 1] = array[j];
+                }
+                array[j + 1] = UnConvert(tmp, type);
             }
-            array[j + 1] = UnConvert(tmp,type);
         }
     }
-    public static <T> void InsertSort(T[] array) {
+    public static <T> void InsertSort(T[] array) throws Exception{
         InsertSort(array, true);
     }
     //binary search
-    public static <T> int BinSearch(T[] array, T value) {
-        InsertSort(array);//if array not sorted
+    public static <T> int BinSearch(T[] array, T value) throws Exception{
+        try {
+            InsertSort(array);
+        }catch (Exception e){
+            throw new Exception("Array is empty. Execution of binary search is impossible.");
+        }
         int ind=(array.length - 1) / 2;
         var tmp = Convert(array[ind]);
         var s = Convert(value);

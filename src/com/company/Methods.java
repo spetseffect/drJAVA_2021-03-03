@@ -47,18 +47,20 @@ public class Methods<T extends Number> {
     //binary search
     public static <T> int BinSearch(T[] array, T value) {
         InsertSort(array);//if array not sorted
-        int ind=array.length / 2;
+        int ind=(array.length - 1) / 2;
         var tmp = Convert(array[ind]);
         var s = Convert(value);
         int b = 0, e = array.length - 1;
         while(tmp != s && b < e){
-            if(tmp < s) e = ind-1;
-            else b = ind + 1;
+            if(s < tmp) e = ind;
+            else b = ind;
             ind = (b + e) / 2;
             tmp = Convert(array[ind]);
         }
+        if(b == e) return -1;
         return ind;
     }
+    //output array to console
     public static <T> void OutputToConsole(T[] array, String margin) {
         int size = array.length;
         for (int i = 0; i < size; i++) {
@@ -67,7 +69,7 @@ public class Methods<T extends Number> {
         }
         System.out.println();
     }
-
+    //convert input number to 'double'
     private static <T> double Convert(T value){
         if(value instanceof Byte) return (double) ((Byte) value).byteValue();
         else if(value instanceof Short) return (double) ((Short) value).shortValue();
@@ -76,6 +78,7 @@ public class Methods<T extends Number> {
         else if(value instanceof Float) return (double) ((Float) value).floatValue();
         else return ((Double) value).doubleValue();
     }
+    //convert 'double' value to the number 'T'
     private static <T> T UnConvert(double value, String className){
         if(className == "java.lang.Byte") return (T) new Byte((byte)value);
         else if(className == "java.lang.Short") return (T) new Short((short) value);
